@@ -14,13 +14,18 @@ public class MovieController {
 
     @GetMapping("/")
     public ModelAndView index(){
-        return new ModelAndView("index");
+        ModelAndView mav = new ModelAndView("index");
+        mav.addObject("name","Nicklas");
+        return mav;
     }
 
+    //Return how many movies are in the data file
     @GetMapping("/count")
     public ModelAndView count(){
-        //Todo
-        return null;
+        ModelAndView mav = new ModelAndView("examples/count");
+        int count = service.getCount();
+        mav.addObject("count", count);
+        return mav;
     }
 
     @GetMapping("/first")

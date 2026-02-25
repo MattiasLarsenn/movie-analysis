@@ -13,4 +13,8 @@ public class MovieService {
     public Movie getFirst(){
         return allMovies.get(1);
     }
+
+    public int getCount(){
+        return allMovies.size();
+    }
 }
