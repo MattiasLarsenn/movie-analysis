@@ -32,7 +32,34 @@ public class MovieController {
     public ModelAndView getFirst(){
         ModelAndView mav = new ModelAndView();
         Movie first = service.getFirst();
-        mav.addObject("firstMovie",first);
-        return new ModelAndView("first");
+        mav.addObject("first",first);
+        return mav;
+    }
+
+    @GetMapping("/averageLength")
+    public ModelAndView averageLength()
+    {
+        ModelAndView mav = new ModelAndView();
+        double average = service.averageLength();
+        mav.addObject("average", average);
+        return mav;
+    }
+
+    @GetMapping("/averageAwardsAge")
+    public ModelAndView averageAwardsAge()
+    {
+        ModelAndView mav = new ModelAndView();
+        double averageAge = service.averageAwardsAge();
+        mav.addObject("averageAge", averageAge);
+        return mav;
+    }
+
+    @GetMapping("/mostPopular")
+    public ModelAndView mostPopular()
+    {
+        ModelAndView mav = new ModelAndView();
+        String mostPopular = service.mostPopular();
+        mav.addObject("mostPopular", mostPopular);
+        return mav;
     }
 }

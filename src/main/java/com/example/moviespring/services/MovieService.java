@@ -2,19 +2,85 @@ package com.example.moviespring.services;
 
 import com.example.moviespring.models.Movie;
 import com.example.moviespring.repositories.MovieRepository;
+import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MovieService {
     private MovieRepository movieRepo = new MovieRepository();
     private List<Movie> allMovies = movieRepo.getAllMovies();
 
     public Movie getFirst(){
-        return allMovies.get(1);
+        return allMovies.get(0);
     }
 
     public int getCount(){
         return allMovies.size();
+    }
+
+    public double averageLength()
+    {
+        int count = 0;
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            Movie m = allMovies.get(i);
+            count += m.getLength();
+        }
+        return (double) count/allMovies.size();
+    }
+
+    public double averageAwardsAge()
+    {
+        LocalDate today = LocalDate.now();
+        int totalAge = 0;
+        int sizeOfMoviesWithAwards = 0;
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            Movie m = allMovies.get(i);
+            if (m.isAwards())
+            {
+                totalAge += today.getYear() - m.getYear();
+                sizeOfMoviesWithAwards++;
+            }
+        }
+
+        if (sizeOfMoviesWithAwards == 0)
+            return 0;
+        return (double) totalAge/sizeOfMoviesWithAwards;
+    }
+
+    public String mostPopular()
+    {
+        Map<String, Integer> popularityMap = new HashMap<>();
+
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            Movie m = allMovies.get(i);
+
+            if (popularityMap.containsKey(m.getSubject()))
+            {
+                int count = popularityMap.get(m.getSubject()) + 1;
+                popularityMap.put(m.getSubject(), count);
+            }
+            else
+            {
+                popularityMap.put(m.getSubject(), 1);
+            }
+        }
+        int max = 0;
+        String mostPopular = null;
+        for (Map.Entry<String, Integer> entry : popularityMap.entrySet())
+        {
+            if (entry.getValue() > max)
+            {
+                max = entry.getValue();
+                mostPopular = entry.getKey();
+            }
+        }
+        return mostPopular;
     }
 }
