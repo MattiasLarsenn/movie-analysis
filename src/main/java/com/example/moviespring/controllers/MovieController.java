@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class MovieController {
@@ -60,6 +61,15 @@ public class MovieController {
         ModelAndView mav = new ModelAndView();
         String mostPopular = service.mostPopular();
         mav.addObject("mostPopular", mostPopular);
+        return mav;
+    }
+
+    @GetMapping("/howManyPerGenre")
+    public ModelAndView howManyPerGenre()
+    {
+        ModelAndView mav = new ModelAndView();
+        Map<String, Integer> moviesPerGenre = service.howManyPerGenre();
+        mav.addObject("moviesPerGenre", moviesPerGenre);
         return mav;
     }
 }

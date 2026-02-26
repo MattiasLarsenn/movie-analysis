@@ -83,4 +83,24 @@ public class MovieService {
         }
         return mostPopular;
     }
+
+    public Map<String, Integer> howManyPerGenre()
+    {
+        Map<String, Integer> moviesPerGenre = new HashMap<String, Integer>();
+
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            Movie m = allMovies.get(i);
+            if (moviesPerGenre.containsKey(m.getSubject()))
+            {
+                int count = moviesPerGenre.get(m.getSubject()) + 1;
+                moviesPerGenre.put(m.getSubject(), count);
+            }
+            else
+            {
+                moviesPerGenre.put(m.getSubject(), 1);
+            }
+        }
+        return moviesPerGenre;
+    }
 }
