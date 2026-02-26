@@ -103,4 +103,48 @@ public class MovieService {
         }
         return moviesPerGenre;
     }
+
+    public int howManyPerYear(int year)
+    {
+        int count = 0;
+        for (int i = 0; i < allMovies.size(); i++)
+        {
+            Movie m = allMovies.get(i);
+            if (year == m.getYear())
+            {
+                count++;
+            }
+        }
+        return count;
+    }
+
+    public List<String> howManyAboveAverage(String genre)
+    {
+       List<String> moviesAboveAverage = new ArrayList<>();
+       int popularityInGenre = 0;
+       int amountOfMoviesWithGenre = 0;
+       for (int i = 0; i < allMovies.size(); i++)
+       {
+           Movie m = allMovies.get(i);
+           if (m.getSubject().equalsIgnoreCase(genre))
+           {
+               popularityInGenre += m.getPopularity();
+               amountOfMoviesWithGenre++;
+           }
+       }
+       if (amountOfMoviesWithGenre == 0)
+       {
+           return moviesAboveAverage;
+       }
+       double average = (double) popularityInGenre / amountOfMoviesWithGenre;
+       for (int i = 0; i < allMovies.size(); i++)
+       {
+           Movie m = allMovies.get(i);
+           if (m.getSubject().equalsIgnoreCase(genre) && m.getPopularity() > average)
+           {
+               moviesAboveAverage.add(m.getTitle());
+           }
+       }
+       return moviesAboveAverage;
+    }
 }

@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p th:text="'Movies in genre ' + ${genre} + ' above average popularity:'"></p>
+<ul>
+    <li th:each="title : ${moviesAboveAverage}"
+        th:text="${title}">
+    </li>
+</ul>
+</body>
+</html>
