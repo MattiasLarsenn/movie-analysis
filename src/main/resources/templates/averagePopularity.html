@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Average Popularity</title>
+</head>
+<body>
+<h1>Average Popularity</h1>
+<p th:text="'Here is showcased the average popularity of all genres with more than 1 movie'"></p>
+<ul>
+<li th:each="entry : ${averagePopularity}">
+    <span th:text="${entry.key}"></span>:
+    <span th:text="${#numbers.formatDecimal(entry.value, 1, 2)}"></span>
+</li>
+</ul>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

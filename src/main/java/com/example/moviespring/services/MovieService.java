@@ -10,7 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class MovieService {
+public class MovieService
+{
     private MovieRepository movieRepo = new MovieRepository();
     private List<Movie> allMovies = movieRepo.getAllMovies();
 
@@ -146,5 +147,120 @@ public class MovieService {
            }
        }
        return moviesAboveAverage;
+    }
+
+    public List<Movie> firstAndLast()
+    {
+        ArrayList<Movie> firstAndLast = new ArrayList<>();
+        firstAndLast.add(allMovies.get(0));
+        firstAndLast.add(allMovies.get(allMovies.size() - 1));
+        return firstAndLast;
+    }
+
+    public List<String> adventureTitles()
+    {
+        List<String> adventure = new ArrayList<>();
+        for (Movie movie : allMovies)
+        {
+            if (movie.getSubject().equalsIgnoreCase("adventure"))
+            {
+                adventure.add(movie.getTitle());
+            }
+        }
+        return adventure;
+    }
+
+    public double adventureAverageLength()
+    {
+        int countLength = 0;
+        int countMovies = 0;
+        for (Movie movie : allMovies)
+        {
+            if (movie.getSubject().equalsIgnoreCase("adventure"))
+            {
+                countLength += movie.getLength();
+                countMovies++;
+            }
+        }
+        if (countMovies == 0)
+            return 0;
+        return (double) countLength / countMovies;
+    }
+
+    public List<Movie> first10Awards()
+    {
+        List<Movie> first10Awards = new ArrayList<>();
+
+        for (Movie movie : allMovies)
+        {
+            if (movie.isAwards())
+            {
+                first10Awards.add(movie);
+                if (first10Awards.size() == 10)
+                {
+                    break;
+                }
+            }
+        }
+        return first10Awards;
+    }
+
+    public List<String> leastCommon()
+    {
+        Map<String, Integer> genreFrequency = new HashMap<>();
+
+        for (Movie movie : allMovies)
+        {
+            if (genreFrequency.containsKey(movie.getSubject()))
+            {
+                int count = genreFrequency.get(movie.getSubject()) + 1;
+                genreFrequency.put(movie.getSubject(), count);
+            }
+            else
+            {
+                genreFrequency.put(movie.getSubject(), 1);
+            }
+        }
+        List<String> leastCommon = new ArrayList<>();
+        for (Map.Entry<String, Integer> entry : genreFrequency.entrySet())
+        {
+            if (entry.getValue() == 1)
+            {
+                leastCommon.add(entry.getKey());
+            }
+        }
+        return leastCommon;
+    }
+
+    public Map<String, Double> averagePopularity()
+    {
+        Map<String, Integer> genreTotalPopularity = new HashMap<>();
+        Map<String, Integer> amountOfMoviesInGenre = new HashMap<>();
+        for (Movie movie : allMovies)
+        {
+            if (genreTotalPopularity.containsKey(movie.getSubject()))
+            {
+                genreTotalPopularity.put(movie.getSubject(), genreTotalPopularity.get(movie.getSubject()) + movie.getPopularity());
+                amountOfMoviesInGenre.put(movie.getSubject(), amountOfMoviesInGenre.get(movie.getSubject()) + 1);
+            }
+            else
+            {
+                genreTotalPopularity.put(movie.getSubject(), movie.getPopularity());
+                amountOfMoviesInGenre.put(movie.getSubject(), 1);
+            }
+        }
+
+        Map<String, Double> averagePopularity = new HashMap<>();
+
+        for (Map.Entry<String, Integer> entry : amountOfMoviesInGenre.entrySet())
+        {
+            if (entry.getValue() > 1)
+            {
+                String genre = entry.getKey();
+                double average = (double) genreTotalPopularity.get(genre) / entry.getValue();
+                averagePopularity.put(genre, average);
+            }
+        }
+        return averagePopularity;
     }
 }

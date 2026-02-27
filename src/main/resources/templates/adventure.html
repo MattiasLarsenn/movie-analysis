@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Adventure titles and average length</title>
+</head>
+<body>
+<h1>Adventure titles and average length</h1>
+<ul>
+    <li th:each="Title : ${adventureTitles}"
+    th:text="${Title}">
+    </li>
+</ul>
+<p th:text="'The average duration of movies in the adventure category is ' + ${adventureAverageLength}"> </p>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

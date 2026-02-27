@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First And Last</title>
+</head>
+<body>
+<p th:text = "'The first and last movies are:'"></p>
+<ul>
+    <li th:each="movie : ${firstAndLast}"
+    th:text="${movie}">
+    </li>
+</ul>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -112,6 +114,58 @@ public class MovieController {
             mav.addObject("moviesAboveAverage", moviesAboveAverage);
             mav.addObject("genre", genre);
         }
+        return mav;
+    }
+
+    @GetMapping("/firstAndLast")
+    public ModelAndView firstAndLast()
+    {
+        ModelAndView mav = new ModelAndView();
+        List<Movie> firstAndLast = service.firstAndLast();
+        mav.setViewName("firstAndLast");
+        mav.addObject("firstAndLast", firstAndLast);
+        return mav;
+    }
+
+    @GetMapping("/adventure")
+    public ModelAndView adventure()
+    {
+        ModelAndView mav = new ModelAndView();
+        List<String> adventureTitles = service.adventureTitles();
+        double adventureAverageLength = service.adventureAverageLength();
+        mav.setViewName("adventure");
+        mav.addObject("adventureTitles", adventureTitles);
+        mav.addObject("adventureAverageLength",adventureAverageLength);
+        return mav;
+    }
+
+    @GetMapping("/first-10-awards")
+    public ModelAndView first10Awards()
+    {
+        ModelAndView mav = new ModelAndView();
+        List<Movie> first10Awards = service.first10Awards();
+        mav.setViewName("first-10-awards");
+        mav.addObject("first10Awards", first10Awards);
+        return mav;
+    }
+
+    @GetMapping("/leastCommon")
+    public ModelAndView leastCommon()
+    {
+        ModelAndView mav = new ModelAndView();
+        List<String> leastCommon = service.leastCommon();
+        mav.setViewName("leastCommon");
+        mav.addObject("leastCommon", leastCommon);
+        return mav;
+    }
+
+    @GetMapping("/averagePopularity")
+    public ModelAndView averagePopularity()
+    {
+        ModelAndView mav = new ModelAndView();
+        Map<String, Double> averagePopularity = service.averagePopularity();
+        mav.setViewName("averagePopularity");
+        mav.addObject("averagePopularity", averagePopularity);
         return mav;
     }
 }

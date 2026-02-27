@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Least Common Genres</title>
+</head>
+<body>
+<h1>Here is a list of the least common genres</h1>
+<ul>
+    <li th:each="Genres : ${leastCommon}"
+    th:text="${Genres}">
+    </li>
+</ul>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

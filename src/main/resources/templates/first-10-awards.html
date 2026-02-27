@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>First 10 movies with awards</title>
+</head>
+<body>
+<h1>First 10 movies with awards</h1>
+<ul>
+    <li th:each="Movie : ${first10Awards}"
+        th:text="${Movie}">
+    </li>
+</ul>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>
